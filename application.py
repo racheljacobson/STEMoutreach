@@ -89,6 +89,7 @@ if __name__ == '__main__':
 
         # create title to display on graph using unique combine number
         title = 'Combine' + ' ' + str(combine)
+
         # set plot values
         plot_arr = np.array(calc_percentile(strength, vertical, quickness, agility, speed))  # returns numpy array
         print(plot_arr)
@@ -98,14 +99,9 @@ if __name__ == '__main__':
                                                                 'Speed'], fill='toself'))
         # set plot layout
         fig.update_layout(polar=dict(
-                              radialaxis=dict(
-                                  visible=True
-                              ),
-                          ), showlegend=False)
+            radialaxis=dict(range=[0, 100],
+                            visible=True
+                            ),
+        ), showlegend=False)
         fig.update_layout(title_text=title)
         fig.show()  # displays graph
-
-
-
-
-
