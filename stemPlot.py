@@ -16,7 +16,7 @@ from csvTest import csvData
 file=csv.reader(r"C:\Users\Rachel\Documents\nbarookieCSV.csv")
 
 #function to convert excel data to csv, if we are given an excel document
-def file_converter(data):
+def file_converter(data)
     read_file = pd.read_excel(r"C:\Users\Rachel\Documents\nba rookie data.xlsx", sheet_name="nba rookies",
                               usecols="G:L")
     csvData = read_file.to_csv(r'C:\Users\Rachel\Documents\rookie_csv.csv', index=bool, header=True)
