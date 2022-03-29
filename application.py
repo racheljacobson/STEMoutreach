@@ -76,7 +76,22 @@ if __name__ == '__main__':
                                 agility=0,
                                 speed=0
                                 )
-    print("Enter you scores!")
+
+    # create dataframe of results
+    print("Enter student results to populate the dataframe")
+    df_data = pd.DataFrame(columns=['Combine', 'Strength', 'Vertical', 'Quickness', 'Agility', 'Speed'])
+    num_stu = int(input("how many student's are there?: "))
+    i = 0
+    while i < num_stu:
+        df_data = df_data.apply({'Combine': float(input()), 'Strength': float(input()), 'Vertical': float(input()),
+                                 'Quickness': float(input()), 'Agility': float(input()), 'Speed': float(input())},
+                                ignore_index=True)
+        i + 1
+    print("Table of Student Results ", df_data, sep='\n')  # prints dataframe
+
+    # get percentiles
+    print("Now we can calculate percentiles of each combine result")
+
     # can input as many combine score sets as user desires until program is stopped
     while True:
         # get text input and convert to int
@@ -91,7 +106,8 @@ if __name__ == '__main__':
         title = 'Combine' + ' ' + str(combine)
 
         # set plot values
-        plot_arr = np.array(calc_percentile(strength, vertical, quickness, agility, speed))  # returns numpy array
+        plot_arr = np.array(calc_percentile(strength, vertical, quickness, agility, speed))
+        # returns numpy array that's required for polar plot
         print(plot_arr)
 
         fig = go.Figure(data=go.Scatterpolar(r=plot_arr, theta=['Strength', 'Vertical',
