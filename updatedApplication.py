@@ -8,24 +8,24 @@ import csv
 
 class OutreachApp(object):
 
-    def __init__(self, combine, strength, vertical, quickness, speed):
+    def __init__(self, combine, strength, vertical, quickness, speed, agility):
         self.combine = combine
         self.strength = strength
         self.vertical = vertical
         self.quickness = quickness
         self.speed = speed
+        self.agility = agility
         self.userdata = {'combine': combine, 'strength': strength, 'vertical': vertical,
-                         'quickness': quickness, 'speed': speed}
+                         'quickness': quickness, 'speed': speed, 'agility': agility}
 
 
 def calc_percentile(strength, vertical, quickness, speed, agility):
 
-    # number of elements as input
+    # number of students to represent number of rows in data matrix
     n = int(input("Enter total number of students : "))
 
     #populate strength array
-    # creating an empty list
-    list_st = []
+    list_st = [] # creating an empty list
     print("enter all strength scores")
     # iterating till the range
     for i in range(0, n):
