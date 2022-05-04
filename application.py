@@ -29,7 +29,7 @@ def calc_percentile(strength, vertical, quickness, agility, speed):
     position = sorted(list_st).index(strength)  # locates the strength score input by the user in the array --> this is
     # equivalent to num values below variable
     decimal = position / total_stud
-    percentile = decimal * 100
+    st_percentile = decimal * 100
     # return percentile
     # this needs to get passed to plot the first value of radar chart
 
@@ -38,8 +38,8 @@ def calc_percentile(strength, vertical, quickness, agility, speed):
     sorted(list_v)  # array sorted in ascending order
     position = sorted(list_v).index(vertical)  # locates the score input by the user in the array
     decimal = position / total_stud
-    percentile1 = decimal * 100
-    # return percentile1
+    v_percentile = decimal * 100
+    # return percentile
 
     list_q = array('f',
                    [2.75, 2.69, 3.02, 3.29, 3.2, 3.19, 3.01, 2.91, 0, 0, 0, 3.19, 2.96, 3.2, 3.14, 3.03, 2.99, 2.86])
@@ -47,14 +47,14 @@ def calc_percentile(strength, vertical, quickness, agility, speed):
     sorted(list_q)  # array sorted in ascending order
     position = sorted(list_q).index(quickness)  # locates the score input by the user in the array
     decimal = position / total_stud
-    percentile2 = decimal * 100
+    q_percentile = decimal * 100
 
     list_a = array('f', [1, 2, 3, 4, 5])
     total_stud = len(list_a)  # the total num of students is the number of scores, alternatively the number of rows-1
     sorted(list_a)  # array sorted in ascending order
     position = sorted(list_a).index(agility)  # locates the score input by the user in the array
     decimal = position / total_stud
-    percentile3 = decimal * 100
+    a_percentile = decimal * 100
 
     list_sp = array('f',
                     [1, 2, 3, 4, 5])
@@ -62,9 +62,9 @@ def calc_percentile(strength, vertical, quickness, agility, speed):
     sorted(list_sp)  # array sorted in descending order
     position = sorted(list_sp).index(speed)  # locates the score input by the user in the array
     decimal = position / total_stud  # applying percentile formula n = num values below score / total num values
-    percentile4 = decimal * 100
+    sp_percentile = decimal * 100
 
-    final_arr = array('f', [percentile, percentile1, percentile2, percentile3, percentile4])
+    final_arr = array('f', [st_percentile, v_percentile, q_percentile, a_percentile, sp_percentile])
     return final_arr
 
 
@@ -76,7 +76,22 @@ if __name__ == '__main__':
                                 agility=0,
                                 speed=0
                                 )
-    print("Enter you scores!")
+
+    # create dataframe of results
+    print("Enter student results to populate the dataframe")
+    df_data = pd.DataFrame(columns=['Combine', 'Strength', 'Vertical', 'Quickness', 'Agility', 'Speed'])
+    num_stu = int(input("how many student's are there?: "))
+    i = 0
+    while i < num_stu:
+        df_data = df_data.apply({'Combine': float(input()), 'Strength': float(input()), 'Vertical': float(input()),
+                                  'Quickness': float(input()), 'Agility': float(input()), 'Speed': float(input())},
+                                ignore_index=True)
+        i + 1
+    print("Table of Student Results ", df_data, sep='\n')  # prints dataframe
+
+    # get percentiles
+    print("Now we can calculate percentiles of each combine result")
+
     # can input as many combine score sets as user desires until program is stopped
     while True:
         # get text input and convert to int
@@ -91,7 +106,8 @@ if __name__ == '__main__':
         title = 'Combine' + ' ' + str(combine)
 
         # set plot values
-        plot_arr = np.array(calc_percentile(strength, vertical, quickness, agility, speed))  # returns numpy array
+        plot_arr = np.array(calc_percentile(strength, vertical, quickness, agility, speed))
+        # returns numpy array that's required for polar plot
         print(plot_arr)
 
         fig = go.Figure(data=go.Scatterpolar(r=plot_arr, theta=['Strength', 'Vertical',
